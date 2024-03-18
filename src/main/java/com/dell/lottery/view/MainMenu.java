@@ -125,8 +125,8 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        BetRecorderView betRecorderView = new BetRecorderView();
-        betRecorderView.setVisible(true);
+        BetCreationWindow betCreationWindow = new BetCreationWindow();
+        betCreationWindow.setVisible(true);
     }//GEN-LAST:event_btnApostarActionPerformed
 
     public void startUpMainMenu() {

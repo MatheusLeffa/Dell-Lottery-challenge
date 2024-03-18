@@ -14,7 +14,7 @@ import static com.dell.lottery.utils.Utils.isOutOfBetRange;
 /**
  * @author mathe
  */
-public class BetRecorderView extends javax.swing.JFrame {
+public class BetCreationWindow extends javax.swing.JFrame {
 
     List<Integer> listOfNumbers = new ArrayList<>();
 
@@ -22,7 +22,7 @@ public class BetRecorderView extends javax.swing.JFrame {
     /**
      * Creates new form BetRecorder
      */
-    public BetRecorderView() {
+    public BetCreationWindow() {
         initComponents();
     }
 
@@ -57,6 +57,7 @@ public class BetRecorderView extends javax.swing.JFrame {
 
         btnVoltar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnVoltar.setText("Voltar ao Menu");
+        btnVoltar.setToolTipText("Volta a tela de menu principal.");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -66,6 +67,7 @@ public class BetRecorderView extends javax.swing.JFrame {
         btnConfirmarAposta.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnConfirmarAposta.setForeground(new java.awt.Color(102, 255, 102));
         btnConfirmarAposta.setText("Cadastrar aposta!");
+        btnConfirmarAposta.setToolTipText("Cadastra a aposta acima preenchida.");
         btnConfirmarAposta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmarApostaActionPerformed(evt);
@@ -83,13 +85,14 @@ public class BetRecorderView extends javax.swing.JFrame {
         btnEscolherNumerosAleatorios.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnEscolherNumerosAleatorios.setForeground(new java.awt.Color(255, 255, 0));
         btnEscolherNumerosAleatorios.setText("Surpresinha!");
+        btnEscolherNumerosAleatorios.setToolTipText("Escolhe os números aleatoriamente.");
         btnEscolherNumerosAleatorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEscolherNumerosAleatoriosActionPerformed(evt);
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Dados do Apostador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(204, 204, 204))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Dados do Apostador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 12), new java.awt.Color(204, 204, 204))); // NOI18N
 
         lableNome1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lableNome1.setText("CPF:");
@@ -138,7 +141,7 @@ public class BetRecorderView extends javax.swing.JFrame {
         btnEscolherNumeros.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnEscolherNumeros.setForeground(new java.awt.Color(255, 255, 0));
         btnEscolherNumeros.setText("Escolher números");
-        btnEscolherNumeros.setToolTipText("Escolher os números");
+        btnEscolherNumeros.setToolTipText("Escolher os números da aposta.");
         btnEscolherNumeros.setAutoscrolls(true);
         btnEscolherNumeros.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEscolherNumeros.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +152,7 @@ public class BetRecorderView extends javax.swing.JFrame {
 
         btnApagarNumeros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnApagarNumeros.setText("Apagar números");
+        btnApagarNumeros.setToolTipText("Apaga todos os números preenchidos.");
         btnApagarNumeros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApagarNumerosActionPerformed(evt);
@@ -235,24 +239,24 @@ public class BetRecorderView extends javax.swing.JFrame {
 
     private void btnEscolherNumerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherNumerosActionPerformed
         String chosenNumber = null;
-        int iterator = 5;
+        int iterator = 1;
         listOfNumbers.clear();
 
-        while (iterator > 0) {
+        JOptionPane.showMessageDialog(btnEscolherNumeros.getParent(), "Digite 5 números de 1 a 50.");
+        while (iterator <= 5) {
             try {
-                chosenNumber = JOptionPane.showInputDialog(btnEscolherNumeros.getParent(), "Selecione um número de 1 a 50.");
+                chosenNumber = JOptionPane.showInputDialog(btnEscolherNumeros.getParent(), listOfNumbers + "\nEscolha o " + iterator + "º número.");
                 if (chosenNumber == null) break;
-                if (chosenNumber.isEmpty()) throw new RuntimeException("Deve ser informado pelo menos um numero!");
+                if (chosenNumber.isEmpty()) throw new RuntimeException("Deve ser informado pelo menos um número!");
                 if (containsNonNumeric(chosenNumber)) throw new RuntimeException("Deve ser informado somente números!");
                 if (isOutOfBetRange(chosenNumber)) throw new RuntimeException("Deve ser escolhido números de 1 a 50!");
 
+                listOfNumbers.add(Integer.parseInt(chosenNumber));
+                iterator++;
+
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(btnEscolherNumeros.getParent(), ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-                throw new RuntimeException(ex);
             }
-
-            listOfNumbers.add(Integer.parseInt(chosenNumber));
-            iterator--;
         }
         if (chosenNumber != null) {
             txtNumerosEscolhidos.setText(listOfNumbers.toString());
@@ -267,6 +271,15 @@ public class BetRecorderView extends javax.swing.JFrame {
 
     private void btnConfirmarApostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarApostaActionPerformed
         // TODO add your handling code here:
+
+        int confirmation = JOptionPane.showConfirmDialog(btnConfirmarAposta,"Confirmar o registro da aposta?", "Confirmação", JOptionPane.YES_NO_OPTION);
+
+        if (confirmation == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(btnConfirmarAposta, "Apósta registrada com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(btnConfirmarAposta, "Apósta não foi registrada.");
+        }
+;
     }//GEN-LAST:event_btnConfirmarApostaActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed

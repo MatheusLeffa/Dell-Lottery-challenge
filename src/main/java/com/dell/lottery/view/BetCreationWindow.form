@@ -114,6 +114,7 @@
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Voltar ao Menu"/>
+        <Property name="toolTipText" type="java.lang.String" value="Volta a tela de menu principal."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVoltarActionPerformed"/>
@@ -128,6 +129,7 @@
           <Color blue="66" green="ff" red="66" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cadastrar aposta!"/>
+        <Property name="toolTipText" type="java.lang.String" value="Cadastra a aposta acima preenchida."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfirmarApostaActionPerformed"/>
@@ -163,6 +165,7 @@
           <Color blue="0" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Surpresinha!"/>
+        <Property name="toolTipText" type="java.lang.String" value="Escolhe os n&#xfa;meros aleatoriamente."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEscolherNumerosAleatoriosActionPerformed"/>
@@ -263,7 +266,7 @@
           <Color blue="0" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Escolher n&#xfa;meros"/>
-        <Property name="toolTipText" type="java.lang.String" value="Escolher os n&#xfa;meros"/>
+        <Property name="toolTipText" type="java.lang.String" value="Escolher os n&#xfa;meros da aposta."/>
         <Property name="autoscrolls" type="boolean" value="true"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Default Cursor"/>
@@ -279,6 +282,7 @@
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Apagar n&#xfa;meros"/>
+        <Property name="toolTipText" type="java.lang.String" value="Apaga todos os n&#xfa;meros preenchidos."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnApagarNumerosActionPerformed"/>
