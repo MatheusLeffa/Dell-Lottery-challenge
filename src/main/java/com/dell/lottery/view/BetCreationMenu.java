@@ -4,7 +4,12 @@
  */
 package com.dell.lottery.view;
 
+import com.dell.lottery.model.BetModel;
+import com.dell.lottery.model.BetRecorder;
+import com.dell.lottery.utils.Utils;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +19,21 @@ import static com.dell.lottery.utils.Utils.isOutOfBetRange;
 /**
  * @author mathe
  */
-public class BetCreationWindow extends javax.swing.JFrame {
+public class BetCreationMenu extends javax.swing.JFrame {
 
-    List<Integer> listOfNumbers = new ArrayList<>();
+    MainMenu mainMenu;
+    List<String> listOfNumbers;
+    BetRecorder betRecorder;
 
 
     /**
      * Creates new form BetRecorder
      */
-    public BetCreationWindow() {
+    public BetCreationMenu(MainMenu mainMenu, BetRecorder betRecorder) {
         initComponents();
+        this.mainMenu = mainMenu;
+        this.betRecorder = betRecorder;
+        listOfNumbers = new ArrayList<>();
     }
 
     /**
@@ -48,8 +58,13 @@ public class BetCreationWindow extends javax.swing.JFrame {
         btnEscolherNumeros = new javax.swing.JButton();
         btnApagarNumeros = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Cadastro de Aposta");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         labelCadastroAposta.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         labelCadastroAposta.setForeground(new java.awt.Color(102, 255, 102));
@@ -92,7 +107,7 @@ public class BetCreationWindow extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Dados do Apostador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 12), new java.awt.Color(204, 204, 204))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Dados do Apostador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(204, 204, 204))); // NOI18N
 
         lableNome1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lableNome1.setText("CPF:");
@@ -222,14 +237,12 @@ public class BetCreationWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEscolherNumerosAleatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherNumerosAleatoriosActionPerformed
-        int chosenNumber;
         int iterator = 5;
         listOfNumbers.clear();
 
         while (iterator > 0) {
 
-            chosenNumber = (int) (Math.round(Math.random() * 49) + 1);
-            listOfNumbers.add(chosenNumber);
+            listOfNumbers.add(String.valueOf(Math.round(Math.random() * 49) + 1));
             iterator--;
         }
 
@@ -242,20 +255,20 @@ public class BetCreationWindow extends javax.swing.JFrame {
         int iterator = 1;
         listOfNumbers.clear();
 
-        JOptionPane.showMessageDialog(btnEscolherNumeros.getParent(), "Digite 5 números de 1 a 50.");
+        JOptionPane.showMessageDialog(this, "Digite 5 números de 1 a 50.");
         while (iterator <= 5) {
             try {
-                chosenNumber = JOptionPane.showInputDialog(btnEscolherNumeros.getParent(), listOfNumbers + "\nEscolha o " + iterator + "º número.");
+                chosenNumber = JOptionPane.showInputDialog(this, listOfNumbers + "\nEscolha o " + iterator + "º número.");
                 if (chosenNumber == null) break;
                 if (chosenNumber.isEmpty()) throw new RuntimeException("Deve ser informado pelo menos um número!");
                 if (containsNonNumeric(chosenNumber)) throw new RuntimeException("Deve ser informado somente números!");
                 if (isOutOfBetRange(chosenNumber)) throw new RuntimeException("Deve ser escolhido números de 1 a 50!");
 
-                listOfNumbers.add(Integer.parseInt(chosenNumber));
+                listOfNumbers.add(chosenNumber);
                 iterator++;
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(btnEscolherNumeros.getParent(), ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
         if (chosenNumber != null) {
@@ -269,24 +282,41 @@ public class BetCreationWindow extends javax.swing.JFrame {
         listOfNumbers.clear();
     }//GEN-LAST:event_btnApagarNumerosActionPerformed
 
-    private void btnConfirmarApostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarApostaActionPerformed
-        // TODO add your handling code here:
+    private void btnConfirmarApostaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnConfirmarApostaActionPerformed
+        String name = txtNome.getText();
+        String cpf = txtCpf.getText();
+        String chosenNumbers = listOfNumbers.toString();
 
-        int confirmation = JOptionPane.showConfirmDialog(btnConfirmarAposta,"Confirmar o registro da aposta?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        if (betConfirmation()) {
+            try {
+                if (name.isEmpty() || !Utils.isValidCpf(cpf) || listOfNumbers.isEmpty()) {
+                    throw new RuntimeException("Alguns dos campos do formulário não foram preenchidos!");
+                }
 
-        if (confirmation == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(btnConfirmarAposta, "Apósta registrada com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(btnConfirmarAposta, "Apósta não foi registrada.");
+                BetModel betModel = new BetModel(name, cpf, chosenNumbers);
+                betRecorder.saveBet(betModel);
+
+                JOptionPane.showMessageDialog(this, "Aposta registrada com sucesso!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Aposta não foi registrada.");
+            }
         }
-;
+
     }//GEN-LAST:event_btnConfirmarApostaActionPerformed
+
+    private boolean betConfirmation() {
+        int confirmation = JOptionPane.showConfirmDialog(this, "Confirmar o registro da aposta?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        return confirmation == JOptionPane.YES_OPTION;
+    }
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
-        MainMenu mainMenu = new MainMenu();
-        mainMenu.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -14,4 +14,9 @@ public class Utils {
         int numeroEscolhido = Integer.parseInt(str);
         return numeroEscolhido < 1 || numeroEscolhido > 50;
     }
+
+    public static boolean isValidCpf(String cpf) {
+        String regex = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}";
+        return cpf.matches(regex);
+    }
 }
