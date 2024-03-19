@@ -19,7 +19,7 @@ import static com.dell.lottery.utils.Utils.isOutOfBetRange;
 /**
  * @author mathe
  */
-public class BetCreationForm extends javax.swing.JFrame {
+public class BetCreationScreen extends javax.swing.JFrame {
 
     private final MainMenu MAIN_MENU;
     private final BetRecorder BET_RECORDER;
@@ -29,7 +29,7 @@ public class BetCreationForm extends javax.swing.JFrame {
     /**
      * Creates new form BetRecorder
      */
-    public BetCreationForm(MainMenu MAIN_MENU, BetRecorder BET_RECORDER) {
+    public BetCreationScreen(MainMenu MAIN_MENU, BetRecorder BET_RECORDER) {
         initComponents();
         this.MAIN_MENU = MAIN_MENU;
         this.BET_RECORDER = BET_RECORDER;

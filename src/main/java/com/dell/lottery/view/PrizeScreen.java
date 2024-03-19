@@ -4,17 +4,25 @@
  */
 package com.dell.lottery.view;
 
+import com.dell.lottery.model.BetRecorder;
+import com.dell.lottery.model.PrizeDraw;
+
 /**
  *
  * @author mathe
  */
 public class PrizeScreen extends javax.swing.JFrame {
 
+    PrizeDraw prizeDraw;
+
+
     /**
      * Creates new form PrizeScreen
      */
     public PrizeScreen() {
         initComponents();
+        prizeDraw = new PrizeDraw(BetRecorder.getBetsList());
+        tb_Winners.setModel(prizeDraw);
     }
 
     /**

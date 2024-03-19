@@ -5,7 +5,6 @@
 package com.dell.lottery.view;
 
 import com.dell.lottery.model.BetRecorder;
-import com.dell.lottery.model.PrizeDraw;
 
 import javax.swing.*;
 
@@ -14,7 +13,6 @@ import javax.swing.*;
  */
 public class MainMenu extends javax.swing.JFrame {
     BetRecorder betRecorder;
-    PrizeDraw prizeDraw;
 
     /**
      * Creates new form MainMenu
@@ -22,9 +20,7 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
         betRecorder = new BetRecorder();
-        prizeDraw = new PrizeDraw(BetRecorder.getBetsList());
         tb_Bets.setModel(betRecorder);
-        tb_Winners.setModel(prizeDraw);
     }
 
     /**
@@ -142,8 +138,8 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
         this.setVisible(false);
-        BetCreationForm betCreationForm = new BetCreationForm(this, betRecorder);
-        betCreationForm.setVisible(true);
+        BetCreationScreen betCreationScreen = new BetCreationScreen(this, betRecorder);
+        betCreationScreen.setVisible(true);
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void btnExecutarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecutarSorteioActionPerformed

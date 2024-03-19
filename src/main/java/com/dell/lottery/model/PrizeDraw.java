@@ -1,43 +1,55 @@
 package com.dell.lottery.model;
 
+import com.dell.lottery.utils.Utils;
 import lombok.Getter;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+@Getter
 public class PrizeDraw extends AbstractTableModel {
 
-    @Getter
     private List<BetModel> winnersList;
-    private List<Integer> winningNumbers;
-    private List<BetModel> betsList;
+    private HashSet<Integer> winningNumbers;
+    private final List<BetModel> betsList;
     private final String[] tableColumns = {"Nome", "CPF", "Aposta", "ID aposta"};
 
     public PrizeDraw(List<BetModel> betsList) {
         this.betsList = betsList;
         this.winnersList = new ArrayList<>();
-        this.winningNumbers = new ArrayList<>();
+        this.winningNumbers = new HashSet<>();
+        prizeValidation();
     }
 
-    public void prizeDraw(){
-        do {
-            drawWinningNumbers();
+    private void prizeValidation() {
+        winningNumbers.clear();
+
+        while (!thereIsWinners()) {
+            if (winningNumbers.size() < 5) {
+                while (winningNumbers.size() < 5) {
+                    winningNumbers.add(Utils.getRandomPrizeNumber());
+                }
+            } else if (winningNumbers.size() < 30) {
+                winningNumbers.add(Utils.getRandomPrizeNumber());
+            } else {
+                throw new RuntimeException("Não houveram vencedores.");
+            }
         }
     }
 
-    private List<Integer> drawWinningNumbers() {
-        this.winnersList = new ArrayList<>();
-        int iterator = 0;
+    private boolean thereIsWinners() {
+        for (BetModel bet : betsList) {
+            List<Integer> betNumbers = Utils.stringToIntegerList(bet.getChosenNumbers());
 
-        do {
-            winnersList.add(String.valueOf(Math.round(Math.random() * 49) + 1));
-            iterator--;
-        } while ();
-    }
-
-    private List<BetModel> findTheWinners(List<BetModel> betsList, List<Integer> winnersNumbers) {
-        betsList.contains()
+            if (!winningNumbers.containsAll(betNumbers)) {
+                return false;
+            } else {
+                winnersList.add(bet);
+            }
+        }
+        return true;
     }
 
     @Override
