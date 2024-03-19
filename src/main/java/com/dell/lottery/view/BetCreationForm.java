@@ -19,20 +19,20 @@ import static com.dell.lottery.utils.Utils.isOutOfBetRange;
 /**
  * @author mathe
  */
-public class BetCreationMenu extends javax.swing.JFrame {
+public class BetCreationForm extends javax.swing.JFrame {
 
-    MainMenu mainMenu;
-    List<String> listOfNumbers;
-    BetRecorder betRecorder;
+    private final MainMenu MAIN_MENU;
+    private final BetRecorder BET_RECORDER;
+    private List<String> listOfNumbers;
 
 
     /**
      * Creates new form BetRecorder
      */
-    public BetCreationMenu(MainMenu mainMenu, BetRecorder betRecorder) {
+    public BetCreationForm(MainMenu MAIN_MENU, BetRecorder BET_RECORDER) {
         initComponents();
-        this.mainMenu = mainMenu;
-        this.betRecorder = betRecorder;
+        this.MAIN_MENU = MAIN_MENU;
+        this.BET_RECORDER = BET_RECORDER;
         listOfNumbers = new ArrayList<>();
     }
 
@@ -294,7 +294,7 @@ public class BetCreationMenu extends javax.swing.JFrame {
                 }
 
                 BetModel betModel = new BetModel(name, cpf, chosenNumbers);
-                betRecorder.saveBet(betModel);
+                BET_RECORDER.saveBet(betModel);
 
                 JOptionPane.showMessageDialog(this, "Aposta registrada com sucesso!");
             } catch (Exception ex) {
@@ -312,10 +312,12 @@ public class BetCreationMenu extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
+        MAIN_MENU.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.dispose();
+        MAIN_MENU.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
 

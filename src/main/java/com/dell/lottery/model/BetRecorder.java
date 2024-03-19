@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BetRecorder extends AbstractTableModel {
-    private Integer betId = 1000;
     @Getter
-    private List<BetModel> betsList = new ArrayList<>();
+    private static List<BetModel> betsList = new ArrayList<>();
     private final String[] tableColumns = {"Nome", "CPF", "Aposta", "ID aposta"};
+    private Integer betId = 1000;
 
 
     public void saveBet(BetModel betModel) throws RuntimeException {
