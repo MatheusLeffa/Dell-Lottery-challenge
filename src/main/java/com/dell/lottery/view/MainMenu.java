@@ -12,15 +12,15 @@ import javax.swing.*;
  * @author mathe
  */
 public class MainMenu extends javax.swing.JFrame {
-    BetRecorder betRecorder;
+    private final BetRecorder BET_RECORDER;
 
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
         initComponents();
-        betRecorder = new BetRecorder();
-        tb_Bets.setModel(betRecorder);
+        BET_RECORDER = new BetRecorder();
+        tb_Bets.setModel(BET_RECORDER);
     }
 
     /**
@@ -138,13 +138,13 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
         this.setVisible(false);
-        BetCreationScreen betCreationScreen = new BetCreationScreen(this, betRecorder);
+        BetCreationScreen betCreationScreen = new BetCreationScreen(this, BET_RECORDER);
         betCreationScreen.setVisible(true);
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void btnExecutarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecutarSorteioActionPerformed
         this.setVisible(false);
-        PrizeScreen prizeScreen = new PrizeScreen();
+        PrizeScreen prizeScreen = new PrizeScreen(this);
         prizeScreen.setVisible(true);
     }//GEN-LAST:event_btnExecutarSorteioActionPerformed
 

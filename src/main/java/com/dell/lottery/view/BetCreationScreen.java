@@ -10,8 +10,7 @@ import com.dell.lottery.utils.Utils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 import static com.dell.lottery.utils.Utils.containsNonNumeric;
 import static com.dell.lottery.utils.Utils.isOutOfBetRange;
@@ -23,7 +22,7 @@ public class BetCreationScreen extends javax.swing.JFrame {
 
     private final MainMenu MAIN_MENU;
     private final BetRecorder BET_RECORDER;
-    private List<String> listOfNumbers;
+    private HashSet<String> listOfNumbers;
 
 
     /**
@@ -33,7 +32,7 @@ public class BetCreationScreen extends javax.swing.JFrame {
         initComponents();
         this.MAIN_MENU = MAIN_MENU;
         this.BET_RECORDER = BET_RECORDER;
-        listOfNumbers = new ArrayList<>();
+        listOfNumbers = new HashSet<>();
     }
 
     /**
@@ -260,6 +259,7 @@ public class BetCreationScreen extends javax.swing.JFrame {
             try {
                 chosenNumber = JOptionPane.showInputDialog(this, listOfNumbers + "\nEscolha o " + iterator + "º número.");
                 if (chosenNumber == null) break;
+                if (listOfNumbers.contains(chosenNumber)) throw new RuntimeException("Este número já foi informado!");
                 if (chosenNumber.isEmpty()) throw new RuntimeException("Deve ser informado pelo menos um número!");
                 if (containsNonNumeric(chosenNumber)) throw new RuntimeException("Deve ser informado somente números!");
                 if (isOutOfBetRange(chosenNumber)) throw new RuntimeException("Deve ser escolhido números de 1 a 50!");
