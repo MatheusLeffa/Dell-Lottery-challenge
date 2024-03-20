@@ -1,6 +1,9 @@
 package com.dell.lottery.utils;
 
+import com.dell.lottery.model.BetModel;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,17 +25,33 @@ public class Utils {
         return cpf.matches(regex);
     }
 
-    public static List<Integer> stringToIntegerList(String stringNumbers){
-        String[] numbersStringArray = stringNumbers.split(", ");
-        List<Integer> numbersList = new ArrayList<>();
+    public static HashSet<Integer> stringToIntegerHashSet(String stringNumbers) {
+        String[] numbersStringArray = stringNumbers.replaceAll("[^0-9,]", "").split(",");
+        HashSet<Integer> numbersSet = new HashSet<>();
 
         for (String number : numbersStringArray) {
-            numbersList.add(Integer.parseInt(number.trim()));
+            numbersSet.add(Integer.parseInt(number.trim()));
+        }
+        return numbersSet;
+    }
+
+    public static List<Integer> stringToIntegerList(List<BetModel> betList) {
+        StringBuilder strBuilder = new StringBuilder();
+        for (BetModel bet : betList){
+            strBuilder.append(bet.getChosenNumbers());
+        }
+        String stringNumbers = strBuilder.toString();
+        String[] numbersStringArray = stringNumbers.replaceAll("[^0-9,]", "").split(",");
+        List<Integer> numbersList = new ArrayList<>();
+
+        for (String number : numbersStringArray){
+            numbersList.add(Integer.parseInt(number));
         }
         return numbersList;
     }
 
-    public static int getRandomPrizeNumber(){
+    public static int getRandomPrizeNumber() {
         return (int) (Math.round(Math.random() * 49) + 1);
     }
+
 }

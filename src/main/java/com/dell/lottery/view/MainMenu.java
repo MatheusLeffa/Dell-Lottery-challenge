@@ -4,7 +4,7 @@
  */
 package com.dell.lottery.view;
 
-import com.dell.lottery.model.BetRecorder;
+import com.dell.lottery.model.BetRecorderTM;
 
 import javax.swing.*;
 
@@ -12,14 +12,14 @@ import javax.swing.*;
  * @author mathe
  */
 public class MainMenu extends javax.swing.JFrame {
-    private final BetRecorder BET_RECORDER;
+    private final BetRecorderTM BET_RECORDER;
 
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
         initComponents();
-        BET_RECORDER = new BetRecorder();
+        BET_RECORDER = new BetRecorderTM();
         tb_Bets.setModel(BET_RECORDER);
     }
 
@@ -37,6 +37,9 @@ public class MainMenu extends javax.swing.JFrame {
         tb_Bets = new javax.swing.JTable();
         btnExecutarSorteio = new javax.swing.JButton();
         btnApostar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        btnSair = new javax.swing.JButton();
+        btnResetApostas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Mega Loteria");
@@ -49,9 +52,10 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 255, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("$$$  Mega Loteria  $$$");
+        jLabel1.setText("$$$  Loteria Dell  $$$");
         jLabel1.setToolTipText("");
 
+        tb_Bets.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tb_Bets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -78,7 +82,7 @@ public class MainMenu extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tb_Bets);
         if (tb_Bets.getColumnModel().getColumnCount() > 0) {
             tb_Bets.getColumnModel().getColumn(1).setPreferredWidth(25);
-            tb_Bets.getColumnModel().getColumn(2).setPreferredWidth(25);
+            tb_Bets.getColumnModel().getColumn(2).setPreferredWidth(30);
             tb_Bets.getColumnModel().getColumn(3).setPreferredWidth(5);
         }
 
@@ -100,37 +104,70 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        jLabel6.setText("Apostas Realizadas");
+
+        btnSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
+        btnResetApostas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnResetApostas.setText("Resetar Apostas");
+        btnResetApostas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetApostasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btnApostar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(60, 60, 60)
-                        .addComponent(btnExecutarSorteio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))))
-                .addGap(26, 26, 26))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(btnApostar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(123, 123, 123)
+                .addComponent(btnExecutarSorteio)
+                .addGap(35, 35, 35))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(145, 145, 145)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(124, 124, 124))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(btnResetApostas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(252, 252, 252)
+                .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                .addGap(36, 36, 36)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnApostar, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(btnExecutarSorteio, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                    .addComponent(btnExecutarSorteio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnResetApostas, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -143,9 +180,19 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void btnExecutarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecutarSorteioActionPerformed
-        this.setVisible(false);
-        PrizeScreen prizeScreen = new PrizeScreen(this);
-        prizeScreen.setVisible(true);
+        try {
+            if (BET_RECORDER.getBetsList().isEmpty()) {
+                throw new RuntimeException("Deve haver apostas registradas para seguir para a fase de sorteio!");
+            }
+            int confirmation = JOptionPane.showConfirmDialog(this, "Quer seguir para o sorteio e apuração dos vencedores?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (confirmation == JOptionPane.YES_OPTION) {
+                PrizeScreen prizeScreen = new PrizeScreen(this, BET_RECORDER);
+                this.setVisible(false);
+                prizeScreen.setVisible(true);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnExecutarSorteioActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -155,7 +202,18 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    public void startUpMainMenu() {
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        int confirmation = JOptionPane.showConfirmDialog(this, "Tem certeza que quer finalizar o programa?", "Quer sair?", JOptionPane.YES_NO_OPTION);
+        if (confirmation == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnResetApostasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetApostasActionPerformed
+        BET_RECORDER.resetBetsList();
+    }//GEN-LAST:event_btnResetApostasActionPerformed
+    
+    public static void startUpMainMenu() {
         /* Set the Nimbus look and feel */
         try {
             UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
@@ -176,7 +234,10 @@ public class MainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApostar;
     private javax.swing.JButton btnExecutarSorteio;
+    private javax.swing.JButton btnResetApostas;
+    private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tb_Bets;
     // End of variables declaration//GEN-END:variables

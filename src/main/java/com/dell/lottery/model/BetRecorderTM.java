@@ -6,10 +6,10 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BetRecorder extends AbstractTableModel {
+public class BetRecorderTM extends AbstractTableModel {
     @Getter
-    private static List<BetModel> betsList = new ArrayList<>();
-    private final String[] tableColumns = {"Nome", "CPF", "Aposta", "ID aposta"};
+    private List<BetModel> betsList = new ArrayList<>();
+    private final String[] TABLE_COLUMNS = {"Nome", "CPF", "Aposta", "ID aposta"};
     private Integer betId = 1000;
 
 
@@ -31,6 +31,12 @@ public class BetRecorder extends AbstractTableModel {
         return false;
     }
 
+    public void resetBetsList(){
+        betId = 1000;
+        betsList.clear();
+        fireTableDataChanged();
+    }
+
     @Override
     public int getRowCount() {
         return betsList.size();
@@ -38,12 +44,12 @@ public class BetRecorder extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return tableColumns.length;
+        return TABLE_COLUMNS.length;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        return tableColumns[columnIndex];
+        return TABLE_COLUMNS[columnIndex];
     }
 
     @Override

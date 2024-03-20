@@ -5,7 +5,7 @@
 package com.dell.lottery.view;
 
 import com.dell.lottery.model.BetModel;
-import com.dell.lottery.model.BetRecorder;
+import com.dell.lottery.model.BetRecorderTM;
 import com.dell.lottery.utils.Utils;
 
 import javax.swing.*;
@@ -21,14 +21,14 @@ import static com.dell.lottery.utils.Utils.isOutOfBetRange;
 public class BetCreationScreen extends javax.swing.JFrame {
 
     private final MainMenu MAIN_MENU;
-    private final BetRecorder BET_RECORDER;
+    private final BetRecorderTM BET_RECORDER;
     private HashSet<String> listOfNumbers;
 
 
     /**
      * Creates new form BetRecorder
      */
-    public BetCreationScreen(MainMenu MAIN_MENU, BetRecorder BET_RECORDER) {
+    public BetCreationScreen(MainMenu MAIN_MENU, BetRecorderTM BET_RECORDER) {
         initComponents();
         this.MAIN_MENU = MAIN_MENU;
         this.BET_RECORDER = BET_RECORDER;
@@ -236,13 +236,10 @@ public class BetCreationScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEscolherNumerosAleatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherNumerosAleatoriosActionPerformed
-        int iterator = 5;
         listOfNumbers.clear();
 
-        while (iterator > 0) {
-
+        while (listOfNumbers.size() < 5) {
             listOfNumbers.add(String.valueOf(Math.round(Math.random() * 49) + 1));
-            iterator--;
         }
 
         txtNumerosEscolhidos.setText(listOfNumbers.toString());
