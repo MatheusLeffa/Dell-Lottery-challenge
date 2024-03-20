@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 /**
- *
  * @author mathe
  */
 public class PrizeScreen extends javax.swing.JFrame {
@@ -27,7 +26,7 @@ public class PrizeScreen extends javax.swing.JFrame {
     /**
      * Creates new form PrizeScreen
      */
-    public PrizeScreen(MainMenu mainMenu,BetRecorderTM betRecorderTM) {
+    public PrizeScreen(MainMenu mainMenu, BetRecorderTM betRecorderTM) {
         initComponents();
         this.MAIN_MENU = mainMenu;
         this.PRIZE_DRAW = new PrizeDrawTM(betRecorderTM.getBetsList());
@@ -116,7 +115,7 @@ public class PrizeScreen extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tb_Winners);
 
-        tb_TotalBetNumbers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tb_TotalBetNumbers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tb_TotalBetNumbers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -275,36 +274,40 @@ public class PrizeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnRefazerSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefazerSorteioActionPerformed
-        if (PRIZE_DRAW.prizeNumbersAndValidation()) {
-            txtNumerosSorteados.setText(PRIZE_DRAW.getPrizeNumbers().toString());
-            if (PRIZE_DRAW.getWinnersList().size() > 1){
-                JOptionPane.showMessageDialog(this,"Parabéns "+ winnersNames() +" !\nO prêmio de: R$"+ PRIZE_DRAW.getPrizeValue() +" será divido entre todos os participantes.\nFavor entrar em contato com a Dell para retirada do prêmio.");
-            } else {
-                JOptionPane.showMessageDialog(this,"Parabéns "+ winnersNames() +" !\nVocê recebeu o prêmio de: R$"+ PRIZE_DRAW.getPrizeValue() +" sozinho!\nFavor entrar em contato com a Dell para retirada do prêmio.");
-            }
-        } else {
-            txtNumerosSorteados.setText(PRIZE_DRAW.getPrizeNumbers().toString());
-            JOptionPane.showMessageDialog(this,"Não houveram vencedores.");
-        }
+        executeThePrizeDraw();
     }//GEN-LAST:event_btnRefazerSorteioActionPerformed
 
-    private String winnersNames(){
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        executeThePrizeDraw();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void executeThePrizeDraw() {
+        if (PRIZE_DRAW.prizeNumbersAndValidation()) {
+            txtNumerosSorteados.setText(PRIZE_DRAW.getPrizeNumbers().toString());
+            if (PRIZE_DRAW.getWinnersList().size() > 1) {
+                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNames() + "!\nVocês ganharam na " + PRIZE_DRAW.getRounds() + "º rodada!\nO prêmio de: " + PRIZE_DRAW.getPrizeValue() + " será divido entre todos os participantes.\nFavor entrar em contato com a Dell para retirada do prêmio.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNames() + "!\nVocê ganhou na " + PRIZE_DRAW.getRounds() + "º rodada!\nVocê recebeu o prêmio de: " + PRIZE_DRAW.getPrizeValue() + " sozinho!\nFavor entrar em contato com a Dell para retirada do prêmio.");
+            }
+            PRIZE_DRAW.resetPrizeValue();
+        } else {
+            txtNumerosSorteados.setText(PRIZE_DRAW.getPrizeNumbers().toString());
+            JOptionPane.showMessageDialog(this, "Não houveram vencedores.\nO prêmio acumulou para: " + PRIZE_DRAW.getPrizeValue());
+        }
+    }
+
+    private String winnersNames() {
         String strNomes = "";
         List<BetModel> betWinners = PRIZE_DRAW.getWinnersList();
-        for (BetModel bet : betWinners){
-            strNomes += (bet.getName() + "("+bet.getCpf()+"), ");
+        for (BetModel bet : betWinners) {
+            if (betWinners.size() > 1){
+                strNomes += (bet.getName() + "(" + bet.getCpf() + "), ");
+            } else {
+                strNomes += (bet.getName() + "(" + bet.getCpf() + ")");
+            }
         }
         return strNomes;
     }
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if (PRIZE_DRAW.prizeNumbersAndValidation()) {
-            txtNumerosSorteados.setText(PRIZE_DRAW.getPrizeNumbers().toString());
-        } else {
-            txtNumerosSorteados.setText(PRIZE_DRAW.getPrizeNumbers().toString());
-            JOptionPane.showMessageDialog(this,"Não houveram vencedores.");
-        }
-    }//GEN-LAST:event_formWindowOpened
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefazerSorteio;

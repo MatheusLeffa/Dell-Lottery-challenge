@@ -10,6 +10,7 @@ import java.util.*;
 @Getter
 public class PrizeDrawTM extends AbstractTableModel {
 
+    private int rounds;
     private Integer prizeValue = 100000;
     private List<BetModel> winnersList;
     private HashSet<Integer> prizeNumbers;
@@ -36,11 +37,14 @@ public class PrizeDrawTM extends AbstractTableModel {
             } else {
                 fireTableDataChanged();
                 accumulatePrize();
+                rounds = prizeNumbers.size();
                 return false;
             }
             updateWinnersList();
         }
+        sortWinnersList();
         fireTableDataChanged();
+        rounds = prizeNumbers.size();
         return true;
     }
 
@@ -54,12 +58,16 @@ public class PrizeDrawTM extends AbstractTableModel {
         }
     }
 
+    private void sortWinnersList(){
+        winnersList.sort(Comparator.comparing(BetModel::getName));
+    }
+
     /* Regra de acumulação do prêmio.
-    Se não houver vencedores na rodada, será somado no valor do prêmio R$10.000 * o número de apostadores.*/
+    Se não houver vencedores na rodada, será somado no valor do prêmio: 10.000 * o número de apostadores.*/
     private void accumulatePrize() {
         Set<String> cpfUnique = new HashSet<>();
 
-        for (BetModel bet : betsList){
+        for (BetModel bet : betsList) {
             cpfUnique.add(bet.getCpf());
         }
 
@@ -69,6 +77,10 @@ public class PrizeDrawTM extends AbstractTableModel {
     public String getPrizeValue() {
         NumberFormat formater = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         return formater.format(this.prizeValue);
+    }
+
+    public void resetPrizeValue() {
+        this.prizeValue = 100000;
     }
 
     @Override

@@ -35,21 +35,6 @@ public class Utils {
         return numbersSet;
     }
 
-    public static List<Integer> stringToIntegerList(List<BetModel> betList) {
-        StringBuilder strBuilder = new StringBuilder();
-        for (BetModel bet : betList){
-            strBuilder.append(bet.getChosenNumbers());
-        }
-        String stringNumbers = strBuilder.toString();
-        String[] numbersStringArray = stringNumbers.replaceAll("[^0-9,]", "").split(",");
-        List<Integer> numbersList = new ArrayList<>();
-
-        for (String number : numbersStringArray){
-            numbersList.add(Integer.parseInt(number));
-        }
-        return numbersList;
-    }
-
     public static int getRandomPrizeNumber() {
         return (int) (Math.round(Math.random() * 49) + 1);
     }

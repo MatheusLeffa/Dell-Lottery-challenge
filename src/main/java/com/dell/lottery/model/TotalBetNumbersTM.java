@@ -1,58 +1,59 @@
 package com.dell.lottery.model;
 
-import com.dell.lottery.utils.Utils;
-
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TotalBetNumbersTM extends AbstractTableModel {
 
     private List<BetModel> betsList;
-    private List<Integer> totalBetNumbers;
-    private List<Integer> betNumbersAmount;
+    private Map<Integer, Integer> betNumbersAmount;
+    private Object[][] data;
     private final String[] TABLE_COLUMNS = {"Número", "Quantidade"};
 
 
     public TotalBetNumbersTM(List<BetModel> betsList) {
         this.betsList = betsList;
-        this.totalBetNumbers = new ArrayList<>();
-        this.betNumbersAmount = new ArrayList<>();
-        totalBetsNumbers();
-        totalBetsNumbersAmount();
+        setBetNumbersAmount();
+        setTableData();
         fireTableDataChanged();
     }
 
-    private void totalBetsNumbers() {
-        List<Integer> betNumbers = Utils.stringToIntegerList(betsList);
-        for (Integer betNumber : betNumbers) {
-            if (!totalBetNumbers.contains(betNumber)) {
-                totalBetNumbers.add(betNumber);
+    private void setBetNumbersAmount() {
+        this.betNumbersAmount = new LinkedHashMap<>();
+
+        for (BetModel bet : betsList) {
+            String[] numbersStringArray = (bet.getChosenNumbers()).replaceAll("[^0-9,]", "").split(",");
+            for (String numberStr : numbersStringArray) {
+                int number = Integer.parseInt(numberStr.trim());
+                betNumbersAmount.put(number, betNumbersAmount.getOrDefault(number, 0) + 1);
             }
         }
-        System.out.println(totalBetNumbers);
+        orderBetNumbersAmount();
     }
 
-    private void totalBetsNumbersAmount() {
-        List<Integer> betNumbers = Utils.stringToIntegerList(betsList);
-        int count = 0;
+    private void orderBetNumbersAmount() {
+        betNumbersAmount = betNumbersAmount.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+    }
 
-        for (Integer uniqueBetNumber : totalBetNumbers) {
-            for (Integer betNumber : betNumbers) {
-                if (uniqueBetNumber.equals(betNumber)) {
-                    count++;
-                }
-            }
-            betNumbersAmount.add(count);
-            count = 0;
+    private void setTableData() {
+        this.data = new Object[betNumbersAmount.size()][2];
+        int index = 0;
+        for (Map.Entry<Integer, Integer> entry : betNumbersAmount.entrySet()) {
+            data[index][0] = entry.getKey();
+            data[index][1] = entry.getValue();
+            index++;
         }
-        System.out.println(betNumbersAmount);
     }
 
     @Override
     public int getRowCount() {
-        return totalBetNumbers.size();
+        return data.length;
     }
 
     @Override
@@ -67,13 +68,6 @@ public class TotalBetNumbersTM extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Integer betNumber = totalBetNumbers.get(rowIndex);
-        Integer betNumberOccurrences = betNumbersAmount.get(rowIndex);
-
-        return switch (columnIndex) {
-            case 0 -> betNumber;
-            case 1 -> betNumberOccurrences;
-            default -> throw new RuntimeException("Index da coluna não existe.");
-        };
+        return data[rowIndex][columnIndex];
     }
 }

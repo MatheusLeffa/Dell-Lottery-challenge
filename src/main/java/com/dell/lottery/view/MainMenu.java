@@ -135,7 +135,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(35, 35, 35))
             .addGroup(layout.createSequentialGroup()
                 .addGap(145, 145, 145)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                 .addGap(124, 124, 124))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
