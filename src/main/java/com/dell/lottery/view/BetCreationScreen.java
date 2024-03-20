@@ -5,7 +5,7 @@
 package com.dell.lottery.view;
 
 import com.dell.lottery.model.BetModel;
-import com.dell.lottery.model.BetRecorderTM;
+import com.dell.lottery.service.BetRecorderTM;
 import com.dell.lottery.utils.Utils;
 
 import javax.swing.*;
@@ -289,14 +289,17 @@ public class BetCreationScreen extends javax.swing.JFrame {
                 if (name.isEmpty() || !Utils.isValidCpf(cpf) || listOfNumbers.isEmpty()) {
                     throw new RuntimeException("Alguns dos campos do formulário não foram preenchidos!");
                 }
+                if (!isCpfAvailable(name, cpf)) {
+                    throw new RuntimeException("Este CPF já está em uso por outra pessoa!!");
+                }
 
                 BetModel betModel = new BetModel(name, cpf, chosenNumbers);
                 BET_RECORDER.saveBet(betModel);
 
                 JOptionPane.showMessageDialog(this, "Aposta registrada com sucesso!");
+
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-                JOptionPane.showMessageDialog(this, "Aposta não foi registrada.");
+                JOptionPane.showMessageDialog(this, ex.getMessage() + "\nAposta não foi registrada.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -305,6 +308,15 @@ public class BetCreationScreen extends javax.swing.JFrame {
     private boolean betConfirmation() {
         int confirmation = JOptionPane.showConfirmDialog(this, "Confirmar o registro da aposta?", "Confirmação", JOptionPane.YES_NO_OPTION);
         return confirmation == JOptionPane.YES_OPTION;
+    }
+
+    private boolean isCpfAvailable(String name, String cpf) {
+        for (BetModel bet : BET_RECORDER.getBetsList()) {
+            if (cpf.equals(bet.getCpf())) {
+                return name.equals(bet.getName());
+            }
+        }
+        return true;
     }
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed

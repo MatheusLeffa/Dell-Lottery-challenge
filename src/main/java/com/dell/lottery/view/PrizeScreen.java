@@ -5,12 +5,11 @@
 package com.dell.lottery.view;
 
 import com.dell.lottery.model.BetModel;
-import com.dell.lottery.model.BetRecorderTM;
-import com.dell.lottery.model.PrizeDrawTM;
-import com.dell.lottery.model.TotalBetNumbersTM;
+import com.dell.lottery.service.BetRecorderTM;
+import com.dell.lottery.service.PrizeDrawTM;
+import com.dell.lottery.service.TotalBetNumbersTM;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 /**
@@ -60,6 +59,7 @@ public class PrizeScreen extends javax.swing.JFrame {
         tb_Bets = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Tela de Sorteio");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -155,7 +155,7 @@ public class PrizeScreen extends javax.swing.JFrame {
 
         btnRefazerSorteio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRefazerSorteio.setText("Refazer o sorteio");
-        btnRefazerSorteio.setToolTipText("Volta a tela de menu principal.");
+        btnRefazerSorteio.setToolTipText("Realiza o sorteio novamente.");
         btnRefazerSorteio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefazerSorteioActionPerformed(evt);
@@ -257,7 +257,7 @@ public class PrizeScreen extends javax.swing.JFrame {
                             .addComponent(btnVoltar)
                             .addComponent(btnRefazerSorteio)))
                     .addComponent(jScrollPane2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -300,7 +300,7 @@ public class PrizeScreen extends javax.swing.JFrame {
         String strNomes = "";
         List<BetModel> betWinners = PRIZE_DRAW.getWinnersList();
         for (BetModel bet : betWinners) {
-            if (betWinners.size() > 1){
+            if (betWinners.size() > 1) {
                 strNomes += (bet.getName() + "(" + bet.getCpf() + "), ");
             } else {
                 strNomes += (bet.getName() + "(" + bet.getCpf() + ")");

@@ -4,7 +4,7 @@
  */
 package com.dell.lottery.view;
 
-import com.dell.lottery.model.BetRecorderTM;
+import com.dell.lottery.service.BetRecorderTM;
 
 import javax.swing.*;
 
@@ -42,7 +42,7 @@ public class MainMenu extends javax.swing.JFrame {
         btnResetApostas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Mega Loteria");
+        setTitle("Loteria Dell");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -89,6 +89,7 @@ public class MainMenu extends javax.swing.JFrame {
         btnExecutarSorteio.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnExecutarSorteio.setForeground(new java.awt.Color(255, 255, 0));
         btnExecutarSorteio.setText("Executar Sorteio!");
+        btnExecutarSorteio.setToolTipText("Executa o sorteio e apuração dos vencedores.");
         btnExecutarSorteio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExecutarSorteioActionPerformed(evt);
@@ -98,6 +99,7 @@ public class MainMenu extends javax.swing.JFrame {
         btnApostar.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnApostar.setForeground(new java.awt.Color(255, 255, 0));
         btnApostar.setText("Apostar!");
+        btnApostar.setToolTipText("Vai para a página de cadastro de apostas.");
         btnApostar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApostarActionPerformed(evt);
@@ -109,6 +111,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         btnSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSair.setText("Sair");
+        btnSair.setToolTipText("Fecha o programa.");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSairActionPerformed(evt);
@@ -117,6 +120,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         btnResetApostas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnResetApostas.setText("Resetar Apostas");
+        btnResetApostas.setToolTipText("Apaga a lista de apostas realizadas.");
         btnResetApostas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResetApostasActionPerformed(evt);
@@ -212,7 +216,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnResetApostasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetApostasActionPerformed
         BET_RECORDER.resetBetsList();
     }//GEN-LAST:event_btnResetApostasActionPerformed
-    
+
     public static void startUpMainMenu() {
         /* Set the Nimbus look and feel */
         try {

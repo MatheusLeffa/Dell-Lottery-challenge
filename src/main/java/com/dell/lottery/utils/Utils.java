@@ -1,10 +1,6 @@
 package com.dell.lottery.utils;
 
-import com.dell.lottery.model.BetModel;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

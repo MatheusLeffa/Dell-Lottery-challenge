@@ -1,5 +1,6 @@
-package com.dell.lottery.model;
+package com.dell.lottery.service;
 
+import com.dell.lottery.model.BetModel;
 import lombok.Getter;
 
 import javax.swing.table.AbstractTableModel;
@@ -31,7 +32,7 @@ public class BetRecorderTM extends AbstractTableModel {
         return false;
     }
 
-    public void resetBetsList(){
+    public void resetBetsList() {
         betId = 1000;
         betsList.clear();
         fireTableDataChanged();

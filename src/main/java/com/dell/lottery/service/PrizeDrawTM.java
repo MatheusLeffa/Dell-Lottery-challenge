@@ -1,5 +1,6 @@
-package com.dell.lottery.model;
+package com.dell.lottery.service;
 
+import com.dell.lottery.model.BetModel;
 import com.dell.lottery.utils.Utils;
 import lombok.Getter;
 
