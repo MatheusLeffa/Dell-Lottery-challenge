@@ -290,7 +290,7 @@ public class BetCreationScreen extends javax.swing.JFrame {
                     throw new RuntimeException("Alguns dos campos do formulário não foram preenchidos!");
                 }
                 if (!isCpfAvailable(name, cpf)) {
-                    throw new RuntimeException("Este CPF já está em uso por outra pessoa!!");
+                    throw new RuntimeException("Este CPF já está em uso por outra pessoa!");
                 }
 
                 BetModel betModel = new BetModel(name, cpf, chosenNumbers);
@@ -299,7 +299,7 @@ public class BetCreationScreen extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Aposta registrada com sucesso!");
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage() + "\nAposta não foi registrada.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage() + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
 

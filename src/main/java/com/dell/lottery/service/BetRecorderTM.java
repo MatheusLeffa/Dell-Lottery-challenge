@@ -16,7 +16,7 @@ public class BetRecorderTM extends AbstractTableModel {
 
     public void saveBet(BetModel betModel) throws RuntimeException {
         if (isBetDuplicated(betModel)) {
-            throw new RuntimeException("Esta aposta já foi registrada neste CPF.");
+            throw new RuntimeException("Esta aposta já foi registrada neste CPF!");
         }
         betModel.setBetID(betId++);
         betsList.add(betModel);

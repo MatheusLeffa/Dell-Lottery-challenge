@@ -9,7 +9,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
  */
 public class LotteryApplication {
 
-    //Inícializa o Menu Principal da aplicação
+    //Inícializa o Menu Principal da aplicação com o tema FlatDarculaLaf.
     public static void main(String[] args) {
         FlatDarculaLaf.setup();
         MainMenu.startUpMainMenu();

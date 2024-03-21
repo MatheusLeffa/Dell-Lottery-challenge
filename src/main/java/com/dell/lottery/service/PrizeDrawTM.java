@@ -38,14 +38,14 @@ public class PrizeDrawTM extends AbstractTableModel {
             } else {
                 fireTableDataChanged();
                 accumulatePrize();
-                rounds = prizeNumbers.size();
+                rounds = prizeNumbers.size()-5;
                 return false;
             }
             updateWinnersList();
         }
         sortWinnersList();
         fireTableDataChanged();
-        rounds = prizeNumbers.size();
+        rounds = prizeNumbers.size()-5;
         return true;
     }
 

@@ -285,9 +285,9 @@ public class PrizeScreen extends javax.swing.JFrame {
         if (PRIZE_DRAW.prizeNumbersAndValidation()) {
             txtNumerosSorteados.setText(PRIZE_DRAW.getPrizeNumbers().toString());
             if (PRIZE_DRAW.getWinnersList().size() > 1) {
-                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNames() + "!\nVocês ganharam na " + PRIZE_DRAW.getRounds() + "º rodada!\nO prêmio de: " + PRIZE_DRAW.getPrizeValue() + " será divido entre todos os participantes.\nFavor entrar em contato com a Dell para retirada do prêmio.");
+                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNames() + "!\nVocês ganharam na " + PRIZE_DRAW.getRounds() + "º rodada!\nO prêmio de: " + PRIZE_DRAW.getPrizeValue() + " será divido entre todos os participantes.\nFavor entrar em contato com a Dell para a retirada do prêmio.");
             } else {
-                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNames() + "!\nVocê ganhou na " + PRIZE_DRAW.getRounds() + "º rodada!\nVocê recebeu o prêmio de: " + PRIZE_DRAW.getPrizeValue() + " sozinho!\nFavor entrar em contato com a Dell para retirada do prêmio.");
+                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNames() + "!\nVocê ganhou na " + PRIZE_DRAW.getRounds() + "º rodada!\nVocê recebeu o prêmio de: " + PRIZE_DRAW.getPrizeValue() + " sozinho(a)!\nFavor entrar em contato com a Dell para a retirada do prêmio.");
             }
             PRIZE_DRAW.resetPrizeValue();
         } else {
@@ -301,9 +301,9 @@ public class PrizeScreen extends javax.swing.JFrame {
         List<BetModel> betWinners = PRIZE_DRAW.getWinnersList();
         for (BetModel bet : betWinners) {
             if (betWinners.size() > 1) {
-                strNomes += (bet.getName() + "(" + bet.getCpf() + "), ");
+                strNomes += (bet.getName() + " (" + bet.getCpf() + "), ");
             } else {
-                strNomes += (bet.getName() + "(" + bet.getCpf() + ")");
+                strNomes += (bet.getName() + " (" + bet.getCpf() + ")");
             }
         }
         return strNomes;
