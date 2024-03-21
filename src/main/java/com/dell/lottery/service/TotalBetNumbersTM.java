@@ -3,11 +3,14 @@ package com.dell.lottery.service;
 import com.dell.lottery.model.BetModel;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
+/**
+ * @author Matheus Leffa Hilbert
+ */
 public class TotalBetNumbersTM extends AbstractTableModel {
 
     private List<BetModel> betsList;
@@ -23,6 +26,7 @@ public class TotalBetNumbersTM extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+    // Atribui ordenadamente todos os números escolhidos nas apostas e a quantidade de suas ocorrências ao LinkedHashMap<Integer, Integer> betNumbersAmount.
     private void setBetNumbersAmount() {
         this.betNumbersAmount = new LinkedHashMap<>();
 
@@ -36,13 +40,26 @@ public class TotalBetNumbersTM extends AbstractTableModel {
         orderBetNumbersAmount();
     }
 
+    // Ordena o Map "betNumbersAmount", ordenando os conjuntos de values iguais de forma decrescente.
     private void orderBetNumbersAmount() {
-        betNumbersAmount = betNumbersAmount.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
-                .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        List<Map.Entry<Integer, Integer>> sortedEntries = new ArrayList<>(betNumbersAmount.entrySet());
+
+        sortedEntries.sort((entry1, entry2) -> {
+            int compareByValue = entry2.getValue().compareTo(entry1.getValue());
+            if (compareByValue != 0) {
+                return compareByValue;
+            } else {
+                return entry2.getKey().compareTo(entry1.getKey());
+            }
+        });
+
+        betNumbersAmount = new LinkedHashMap<>();
+        for (Map.Entry<Integer, Integer> entry : sortedEntries) {
+            betNumbersAmount.put(entry.getKey(), entry.getValue());
+        }
     }
 
+    // Implanta os dados do Map "betNumbersAmount" no Array bi-dimensional de Object "data".
     private void setTableData() {
         this.data = new Object[betNumbersAmount.size()][2];
         int index = 0;
@@ -53,6 +70,8 @@ public class TotalBetNumbersTM extends AbstractTableModel {
         }
     }
 
+    // Abaixo métodos implementados da interface "Table Model", que esta classe herdou da "AbstractTableModel".
+    // Precisamos destes métodos para implementar as tabelas (JTable) no Java Swing (GUI).
     @Override
     public int getRowCount() {
         return data.length;

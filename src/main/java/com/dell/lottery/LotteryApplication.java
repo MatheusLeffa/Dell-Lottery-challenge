@@ -12,6 +12,7 @@ public class LotteryApplication {
     //Inícializa o Menu Principal da aplicação com o tema FlatDarculaLaf.
     public static void main(String[] args) {
         FlatDarculaLaf.setup();
-        MainMenu.startUpMainMenu();
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.setVisible(true);
     }
 }
