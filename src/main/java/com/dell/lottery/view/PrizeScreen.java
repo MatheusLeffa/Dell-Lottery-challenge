@@ -274,9 +274,9 @@ public class PrizeScreen extends javax.swing.JFrame {
         if (PRIZE_DRAW.prizeNumbersAndValidation()) {
             txtNumerosSorteados.setText(PRIZE_DRAW.getPrizeNumbers().toString());
             if (PRIZE_DRAW.getWinnersList().size() > 1) {
-                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNamesAndCpf() + "!\nVocês ganharam na " + PRIZE_DRAW.getRounds() + "º rodada!\nO prêmio de: " + PRIZE_DRAW.getPrizeValue() + " será divido entre todos os participantes.\nFavor entrar em contato com a Dell para a retirada do prêmio.");
+                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNamesAndCpf() + "!\nVocês ganharam na " + PRIZE_DRAW.getRounds() + "º rodada!\nO prêmio de: " + PRIZE_DRAW.getPrizeValue() + " será divido entre todos os participantes.\nFavor entrar no site https://www.dell.com/sorteio para entrar em contato e fazer a retirada do prêmio.");
             } else {
-                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNamesAndCpf() + "!\nVocê ganhou na " + PRIZE_DRAW.getRounds() + "º rodada!\nVocê recebeu o prêmio de: " + PRIZE_DRAW.getPrizeValue() + " sozinho(a)!\nFavor entrar em contato com a Dell para a retirada do prêmio.");
+                JOptionPane.showMessageDialog(this, "Parabéns " + winnersNamesAndCpf() + "!\nVocê ganhou na " + PRIZE_DRAW.getRounds() + "º rodada!\nVocê recebeu o prêmio de: " + PRIZE_DRAW.getPrizeValue() + " sozinho(a)!\nFavor entrar no site https://www.dell.com/sorteio para entrar em contato e fazer a retirada do prêmio.");
             }
             PRIZE_DRAW.resetPrizeValue();
         } else {
