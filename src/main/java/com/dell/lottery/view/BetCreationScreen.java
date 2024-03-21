@@ -7,6 +7,7 @@ import com.dell.lottery.utils.Utils;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 /**
  * @author Matheus Leffa Hilbert
@@ -15,7 +16,7 @@ public class BetCreationScreen extends javax.swing.JFrame {
 
     private final MainMenu MAIN_MENU;
     private final BetRecorderTM BET_RECORDER;
-    private HashSet<String> listOfNumbers;
+    private LinkedHashSet<String> listOfNumbers;
 
 
     // Construtor. Cria o JFrame "Cadastro de aposta"
@@ -23,7 +24,7 @@ public class BetCreationScreen extends javax.swing.JFrame {
         initComponents();
         this.MAIN_MENU = MAIN_MENU;
         this.BET_RECORDER = BET_RECORDER;
-        listOfNumbers = new HashSet<>();
+        listOfNumbers = new LinkedHashSet<>();
     }
 
     /**
